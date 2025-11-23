@@ -1,7 +1,9 @@
+import Camera from "../components/Camera";
+
 export default function CameraPage () {
   return (
     <>
-    <div>camera page</div>
+      <Camera/>
     </>
   )
 }
