@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { fetchRecentPhotos, updateCaption, deletePhotoData } from '../services/firestoreService';
 import type { PhotoData } from '../types';
 import { showToast } from '../utils/toastUtil';
@@ -15,6 +16,7 @@ import { showToast } from '../utils/toastUtil';
  */
 export default function ResultPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [photos, setPhotos] = useState<PhotoData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -34,7 +36,7 @@ export default function ResultPage() {
       setPhotos(photoList);
     } catch (error) {
       console.error('사진 조회 실패:', error);
-      showToast('사진을 불러오는데 실패했습니다.', 'error');
+      showToast(t('result.loadError'), 'error');
     } finally {
       setIsLoading(false);
     }
@@ -72,10 +74,10 @@ export default function ResultPage() {
       
       setEditingId(null);
       setEditCaption('');
-      showToast('멘트가 수정되었습니다.', 'success');
+      showToast(t('result.captionUpdated'), 'success');
     } catch (error) {
       console.error('멘트 수정 실패:', error);
-      showToast('멘트 수정에 실패했습니다.', 'error');
+      showToast(t('result.captionUpdateError'), 'error');
     }
   };
 
@@ -83,7 +85,7 @@ export default function ResultPage() {
    * 사진 삭제
    */
   const handleDelete = async (photo: PhotoData) => {
-    if (!confirm('정말 이 인생네컷을 삭제하시겠습니까?')) {
+    if (!confirm(t('result.deleteConfirm'))) {
       return;
     }
 
@@ -93,10 +95,10 @@ export default function ResultPage() {
       // 로컬 상태에서 제거
       setPhotos(photos.filter(p => p.id !== photo.id));
       
-      showToast('인생네컷이 삭제되었습니다.', 'success');
+      showToast(t('result.photoDeleted'), 'success');
     } catch (error) {
       console.error('사진 삭제 실패:', error);
-      showToast('사진 삭제에 실패했습니다.', 'error');
+      showToast(t('result.photoDeleteError'), 'error');
     }
   };
 
@@ -123,7 +125,7 @@ export default function ResultPage() {
       <div className="min-h-screen bg-gradient-to-br from-pink-50 via-blue-50 to-purple-100 flex items-center justify-center">
         <div className="text-center">
           <div className="loading loading-spinner loading-lg text-primary"></div>
-          <p className="mt-4 text-gray-600">사진을 불러오는 중...</p>
+          <p className="mt-4 text-gray-600">{t('result.loading')}</p>
         </div>
       </div>
     );
@@ -134,24 +136,24 @@ export default function ResultPage() {
       <div className="max-w-6xl mx-auto">
         {/* 헤더 */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">📸 My Gallery</h1>
+          <h1 className="text-3xl font-bold text-gray-800">{t('result.title')}</h1>
           <button
             onClick={() => navigate('/')}
             className="px-4 py-2 rounded-full bg-white/50 backdrop-blur-sm hover:bg-white/70 transition-all text-sm font-medium text-gray-700"
           >
-            ← Home
+            {t('result.home')}
           </button>
         </div>
 
         {/* 갤러리 */}
         {photos.length === 0 ? (
           <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-12 text-center">
-            <p className="text-gray-400 text-lg mb-4">아직 촬영한 인생네컷이 없습니다.</p>
+            <p className="text-gray-400 text-lg mb-4">{t('result.noPhotos')}</p>
             <button
               onClick={() => navigate('/camera')}
               className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all"
             >
-              첫 인생네컷 촬영하기
+              {t('result.firstPhoto')}
             </button>
           </div>
         ) : (
@@ -197,27 +199,27 @@ export default function ResultPage() {
                         onChange={(e) => setEditCaption(e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         rows={2}
-                        placeholder="멘트를 입력하세요..."
+                        placeholder={t('result.captionPlaceholder')}
                       />
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleSaveCaption(photo.id)}
                           className="flex-1 px-3 py-1.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
                         >
-                          저장
+                          {t('result.save')}
                         </button>
                         <button
                           onClick={handleEditCancel}
                           className="flex-1 px-3 py-1.5 bg-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-400 transition-colors"
                         >
-                          취소
+                          {t('result.cancel')}
                         </button>
                       </div>
                     </div>
                   ) : (
                     <div>
                       <p className="text-gray-800 text-sm min-h-[40px]">
-                        {photo.caption || '멘트를 추가해보세요 ✏️'}
+                        {photo.caption || t('result.captionDefault')}
                       </p>
                     </div>
                   )}
@@ -229,13 +231,13 @@ export default function ResultPage() {
                         onClick={() => handleEditStart(photo)}
                         className="flex-1 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm rounded-lg hover:shadow-lg transition-all"
                       >
-                        ✏️ 멘트 수정
+                        {t('result.edit')}
                       </button>
                       <button
                         onClick={() => handleDelete(photo)}
                         className="px-3 py-1.5 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition-colors"
                       >
-                        🗑️
+                        {t('result.delete')}
                       </button>
                     </div>
                   )}

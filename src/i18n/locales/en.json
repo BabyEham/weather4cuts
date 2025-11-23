@@ -23,6 +23,25 @@
       "snowy": "Snowy"
     }
   },
+  "result": {
+    "title": "📸 My Gallery",
+    "loading": "Loading photos...",
+    "loadError": "Failed to load photos.",
+    "noPhotos": "No photo strips yet.",
+    "firstPhoto": "Take your first photo strip",
+    "home": "← Home",
+    "captionPlaceholder": "Add a caption...",
+    "captionDefault": "Add a caption ✏️",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "✏️ Edit Caption",
+    "delete": "🗑️",
+    "deleteConfirm": "Are you sure you want to delete this photo strip?",
+    "captionUpdated": "Caption updated successfully.",
+    "captionUpdateError": "Failed to update caption.",
+    "photoDeleted": "Photo strip deleted successfully.",
+    "photoDeleteError": "Failed to delete photo."
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
