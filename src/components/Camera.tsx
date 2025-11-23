@@ -1,4 +1,8 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router";
+import { savePhotoData } from "../services/firestoreService";
+import { showToast } from "../utils/toastUtil";
+import type { WeatherCondition } from "../types";
 
 // 프레임 이미지 import
 import sunnyFrame1 from "../assets/frame/sunny/sunny-1.png";
@@ -31,16 +35,19 @@ const weatherFrames: Record<Weather, string[]> = {
 };
 
 export default function Camera() {
+  const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
   const frameRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>([]); // 프레임 포함 이미지 (미리보기용)
+  const [rawImages, setRawImages] = useState<string[]>([]); // 프레임 없는 원본 이미지 (저장용)
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [weather, setWeather] = useState<Weather>("sunny");
   const [frameDimensions, setFrameDimensions] = useState({
     width: 0,
     height: 0,
   });
+  const [isSaving, setIsSaving] = useState(false);
   const isFrameSizeSet = useRef(false);
 
   const startCamera = async () => {
@@ -71,13 +78,15 @@ export default function Camera() {
 
     const context = canvas.getContext("2d");
     if (context) {
-      // 비디오 그리기 (좌우 반전)
+      // 1. 프레임 없는 원본 이미지 저장 (Storage 저장용)
       context.save();
       context.scale(-1, 1);
       context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
       context.restore();
+      const rawDataUrl = canvas.toDataURL("image/png");
+      setRawImages((prev) => [...prev, rawDataUrl]);
 
-      // 프레임 이미지 그리기 (좌우 반전 적용)
+      // 2. 프레임 포함 이미지 저장 (미리보기용)
       context.save();
       context.scale(-1, 1);
       context.drawImage(frame, -canvas.width, 0, canvas.width, canvas.height);
@@ -90,6 +99,7 @@ export default function Camera() {
 
   const resetPhotos = () => {
     setImages([]);
+    setRawImages([]);
     isFrameSizeSet.current = false;
   };
 
@@ -99,6 +109,41 @@ export default function Camera() {
       stream.getTracks().forEach((track) => track.stop());
       videoRef.current.srcObject = null;
       setIsCameraActive(false);
+    }
+  };
+
+  /**
+   * 촬영 완료 후 Firestore와 Storage에 저장
+   */
+  const handleSavePhotos = async () => {
+    if (rawImages.length !== 4) {
+      showToast("4장의 사진을 모두 촬영해주세요.", "error");
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+      
+      // Firestore와 Storage에 저장
+      // 임시로 온도는 25도로 설정 (실제로는 API에서 가져와야 함)
+      await savePhotoData(
+        rawImages, // 프레임 없는 원본 이미지 저장
+        weather as WeatherCondition,
+        25,
+        ""
+      );
+
+      showToast("인생네컷이 저장되었습니다! 🎉", "success");
+      
+      // 결과 페이지로 이동
+      setTimeout(() => {
+        navigate("/result");
+      }, 1000);
+    } catch (error) {
+      console.error("사진 저장 실패:", error);
+      showToast("사진 저장에 실패했습니다. 다시 시도해주세요.", "error");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -252,8 +297,19 @@ export default function Camera() {
             </div>
             {images.length === 4 && (
               <div className="mt-4 text-center">
-                <button className="btn btn-success text-white btn-lg">
-                  완성! 결과 보기
+                <button 
+                  className="btn btn-success text-white btn-lg"
+                  onClick={handleSavePhotos}
+                  disabled={isSaving}
+                >
+                  {isSaving ? (
+                    <>
+                      <span className="loading loading-spinner"></span>
+                      저장 중...
+                    </>
+                  ) : (
+                    "완성! 결과 보기"
+                  )}
                 </button>
               </div>
             )}
