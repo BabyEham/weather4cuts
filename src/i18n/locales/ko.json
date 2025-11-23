@@ -23,6 +23,25 @@
       "snowy": "눈"
     }
   },
+  "result": {
+    "title": "📸 My Gallery",
+    "loading": "사진을 불러오는 중...",
+    "loadError": "사진을 불러오는데 실패했습니다.",
+    "noPhotos": "아직 촬영한 인생네컷이 없습니다.",
+    "firstPhoto": "첫 인생네컷 촬영하기",
+    "home": "← Home",
+    "captionPlaceholder": "멘트를 입력하세요...",
+    "captionDefault": "멘트를 추가해보세요 ✏️",
+    "save": "저장",
+    "cancel": "취소",
+    "edit": "✏️ 멘트 수정",
+    "delete": "🗑️",
+    "deleteConfirm": "정말 이 인생네컷을 삭제하시겠습니까?",
+    "captionUpdated": "멘트가 수정되었습니다.",
+    "captionUpdateError": "멘트 수정에 실패했습니다.",
+    "photoDeleted": "인생네컷이 삭제되었습니다.",
+    "photoDeleteError": "사진 삭제에 실패했습니다."
+  },
   "common": {
     "loading": "로딩 중...",
     "error": "오류가 발생했습니다",

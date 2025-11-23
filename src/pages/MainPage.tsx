@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { fetchCurrentWeather, getWeatherEmoji } from '../services/weatherService';
 import { fetchRecentPhotos } from '../services/firestoreService';
@@ -17,7 +17,7 @@ import { showToast } from '../utils/toastUtil';
  * 5. 로딩/오류 처리
  */
 export default function MainPage() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   // 상태 관리
@@ -203,10 +203,10 @@ export default function MainPage() {
               </p>
             </div>
 
-            {/* 시작하기 버튼 - 비활성화 (팀원 구현 전) */}
+            {/* 시작하기 버튼 */}
             <button
-              disabled
-              className="px-14 py-3.5 bg-gradient-to-r from-blue-200 to-blue-300 text-gray-900 text-base font-semibold rounded-full shadow-lg cursor-not-allowed opacity-70"
+              onClick={() => navigate('/camera')}
+              className="px-14 py-3.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-base font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
             >
               {t('home.startButton')}
             </button>
@@ -240,6 +240,7 @@ export default function MainPage() {
               {recentPhotos.map((photo) => (
                 <div
                   key={photo.id}
+                  onClick={() => navigate('/result')}
                   className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer"
                 >
                   <div className="aspect-[3/4] bg-gray-200 overflow-hidden">

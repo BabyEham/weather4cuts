@@ -1,5 +1,5 @@
 // 날씨 상태 타입
-export type WeatherCondition = 'sunny' | 'cloudy' | 'rainy' | 'snowy';
+export type WeatherCondition = "sunny" | "cloudy" | "rainy" | "snowy";
 
 // 날씨 API 응답 데이터 타입
 export interface WeatherData {
@@ -14,11 +14,13 @@ export interface WeatherData {
 // 인생네컷 데이터 타입
 export interface PhotoData {
   id: string;
-  imageUrl: string; // 사진 URL
+  imageUrl: string; // 사진 URL (Storage에서 불러온 URL)
+  images: string[]; // 4장의 개별 이미지 URL 배열
   weather: WeatherCondition; // 촬영 당시 날씨
   temperature: number; // 촬영 당시 기온
   createdAt: Date; // 촬영 일시
   frameType: string; // 프레임 타입
+  caption?: string; // 사용자가 입력한 멘트 (선택사항)
 }
 
 // 기상청 API 응답 타입
