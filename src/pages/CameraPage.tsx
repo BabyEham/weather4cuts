@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import type { WeatherCondition } from '../types';
@@ -88,14 +87,3 @@ export default function CameraPage() {
     </div>
   );
 }
-=======
-import Camera from "../components/Camera";
-
-export default function CameraPage () {
-  return (
-    <>
-      <Camera/>
-    </>
-  )
-}
->>>>>>> 7afdd8a395ed595918f24d6b5afb78d388a4355a
