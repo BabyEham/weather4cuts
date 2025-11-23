@@ -1,0 +1,34 @@
+{
+  "home": {
+    "title": "날씨네컷",
+    "subtitle": "오늘의 날씨로 특별한 순간을 담아보세요",
+    "currentWeather": "현재 날씨",
+    "temperature": "{{temp}}°C",
+    "location": "{{location}}",
+    "startButton": "시작하기",
+    "recentPhotos": "최근 촬영한 인생네컷",
+    "noPhotos": "아직 촬영한 사진이 없습니다",
+    "loading": "날씨 정보를 불러오는 중...",
+    "weatherLoading": "날씨 정보 로딩 중",
+    "photosLoading": "최근 사진 로딩 중",
+    "error": {
+      "weatherFetch": "날씨 정보를 불러오는데 실패했습니다",
+      "photosFetch": "최근 사진을 불러오는데 실패했습니다",
+      "retry": "다시 시도"
+    },
+    "weather": {
+      "sunny": "맑음",
+      "cloudy": "흐림",
+      "rainy": "비",
+      "snowy": "눈"
+    }
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "close": "닫기",
+    "confirm": "확인",
+    "cancel": "취소"
+  }
+}

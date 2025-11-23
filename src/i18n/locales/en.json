@@ -1,0 +1,34 @@
+{
+  "home": {
+    "title": "Weather4Cuts",
+    "subtitle": "Capture special moments with today's weather",
+    "currentWeather": "Current Weather",
+    "temperature": "{{temp}}°C",
+    "location": "{{location}}",
+    "startButton": "Get Started",
+    "recentPhotos": "Recent Photo Shoots",
+    "noPhotos": "No photos yet",
+    "loading": "Loading weather information...",
+    "weatherLoading": "Loading weather",
+    "photosLoading": "Loading recent photos",
+    "error": {
+      "weatherFetch": "Failed to fetch weather information",
+      "photosFetch": "Failed to fetch recent photos",
+      "retry": "Retry"
+    },
+    "weather": {
+      "sunny": "Sunny",
+      "cloudy": "Cloudy",
+      "rainy": "Rainy",
+      "snowy": "Snowy"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "close": "Close",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  }
+}
