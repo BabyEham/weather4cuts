@@ -97,11 +97,6 @@ export const fetchCurrentWeather = async (): Promise<WeatherData> => {
     const { date, time } = getCurrentDateTime();
     const { nx, ny } = convertToGrid(); // 서울 기준 좌표
 
-    console.log('========== 날씨 API 호출 시작 ==========');
-    console.log('📅 요청 날짜:', date);
-    console.log('⏰ 요청 시간:', time);
-    console.log('📍 좌표:', { nx, ny });
-
     // API 요청 파라미터
     const params = new URLSearchParams({
       serviceKey: apiKey,
@@ -115,17 +110,14 @@ export const fetchCurrentWeather = async (): Promise<WeatherData> => {
     });
 
     const apiUrl = `${KMA_API_BASE_URL}?${params.toString()}`;
-    console.log('🌐 API URL:', apiUrl.substring(0, 100) + '...');
 
     const response = await fetch(apiUrl);
-    console.log('📡 응답 상태:', response.status, response.statusText);
 
     if (!response.ok) {
       throw new Error(`날씨 API 호출 실패: ${response.status} ${response.statusText}`);
     }
 
     const data: KMAApiResponse = await response.json();
-    console.log('📦 API 응답 데이터:', data);
 
     // API 응답 검증
     if (data.response.header.resultCode !== '00') {
@@ -161,12 +153,6 @@ export const fetchCurrentWeather = async (): Promise<WeatherData> => {
       reh,
       timestamp: new Date(),
     };
-
-    console.log('✅ 최종 날씨 데이터:', weatherData);
-    console.log('🌡️ 기온:', temperature + '°C');
-    console.log('☁️ 날씨 상태:', weatherData.condition);
-    console.log('💧 습도:', reh + '%');
-    console.log('========== 날씨 API 호출 완료 ==========');
 
     return weatherData;
   } catch (error) {
