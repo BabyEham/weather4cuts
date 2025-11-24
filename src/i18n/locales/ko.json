@@ -11,36 +11,58 @@
     "loading": "날씨 정보를 불러오는 중...",
     "weatherLoading": "날씨 정보 로딩 중",
     "photosLoading": "최근 사진 로딩 중",
+    "selectWeather": "원하는 날씨를 선택하세요",
+    "selectWeatherFirst": "날씨를 먼저 선택해주세요",
     "error": {
       "weatherFetch": "날씨 정보를 불러오는데 실패했습니다",
       "photosFetch": "최근 사진을 불러오는데 실패했습니다",
       "retry": "다시 시도"
-    },
-    "weather": {
-      "sunny": "맑음",
-      "cloudy": "흐림",
-      "rainy": "비",
-      "snowy": "눈"
     }
   },
+  "weather": {
+    "sunny": "맑음",
+    "cloudy": "흐림",
+    "rainy": "비",
+    "snowy": "눈"
+  },
   "result": {
-    "title": "📸 My Gallery",
+    "title": "My Gallery",
     "loading": "사진을 불러오는 중...",
     "loadError": "사진을 불러오는데 실패했습니다.",
     "noPhotos": "아직 촬영한 인생네컷이 없습니다.",
     "firstPhoto": "첫 인생네컷 촬영하기",
     "home": "← Home",
     "captionPlaceholder": "멘트를 입력하세요...",
-    "captionDefault": "멘트를 추가해보세요 ✏️",
+    "captionDefault": "멘트를 추가해보세요",
     "save": "저장",
     "cancel": "취소",
-    "edit": "✏️ 멘트 수정",
-    "delete": "🗑️",
+    "edit": "멘트 수정",
+    "delete": "삭제",
+    "download": "다운로드",
     "deleteConfirm": "정말 이 인생네컷을 삭제하시겠습니까?",
     "captionUpdated": "멘트가 수정되었습니다.",
     "captionUpdateError": "멘트 수정에 실패했습니다.",
     "photoDeleted": "인생네컷이 삭제되었습니다.",
-    "photoDeleteError": "사진 삭제에 실패했습니다."
+    "photoDeleteError": "사진 삭제에 실패했습니다.",
+    "downloadSuccess": "사진이 다운로드되었습니다.",
+    "downloadError": "사진 다운로드에 실패했습니다.",
+    "previousPhotos": "이전 사진"
+  },
+  "camera": {
+    "title": "Weather 4 Cuts",
+    "subtitle": "날씨에 맞는 특별한 네컷 사진을 찍어보세요!",
+    "capture": "촬영하기",
+    "captureCount": "촬영 ({{current}}/{{total}})",
+    "retake": "다시 촬영",
+    "complete": "완성! 결과 보기",
+    "saving": "저장 중...",
+    "capturedPhotos": "촬영된 사진",
+    "photoCount": "{{current}}/{{total}}",
+    "cutLabel": "{{current}} / {{total}} 컷",
+    "maxPhotos": "최대 4장까지 촬영할 수 있습니다.",
+    "allPhotosCaptured": "4장의 사진을 모두 촬영해주세요.",
+    "saveSuccess": "인생네컷이 저장되었습니다! 🎉",
+    "saveError": "사진 저장에 실패했습니다. 다시 시도해주세요."
   },
   "common": {
     "loading": "로딩 중...",
