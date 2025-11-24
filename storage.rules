@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // photos 폴더에 대한 규칙
+    match /photos/{allPaths=**} {
+      // 모든 사용자가 읽기 가능
+      allow read: if true;
+      
+      // 모든 사용자가 쓰기 가능
+      allow write: if true;
+      
+      // 파일 크기 제한 (10MB)
+      allow create: if request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}
