@@ -6,8 +6,10 @@ import type { WeatherData, WeatherCondition, KMAApiResponse } from '../types';
  */
 
 // 기상청 API 엔드포인트
-const KMA_API_BASE_URL =
-  'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst';
+// 배포 환경에서는 프록시 사용, 개발 환경에서는 직접 호출
+const KMA_API_BASE_URL = import.meta.env.PROD 
+  ? '/api/weather'
+  : 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst';
 
 /**
  * 현재 시각을 기상청 API 형식으로 변환
@@ -109,7 +111,10 @@ export const fetchCurrentWeather = async (): Promise<WeatherData> => {
       dataType: 'JSON',
     });
 
-    const apiUrl = `${KMA_API_BASE_URL}?${params.toString()}`;
+    // 배포 환경에서는 프록시로 요청
+    const apiUrl = import.meta.env.PROD
+      ? `${KMA_API_BASE_URL}?date=${date}&time=${time}&nx=${nx}&ny=${ny}`
+      : `${KMA_API_BASE_URL}?${params.toString()}`;
 
     const response = await fetch(apiUrl);
 
