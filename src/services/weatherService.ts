@@ -49,11 +49,9 @@ const getCurrentDateTime = (): { date: string; time: string } => {
 /**
  * 위도/경도를 기상청 격자 좌표(nx, ny)로 변환
  * 서울 시청 기준 좌표를 기본값으로 사용
- * @param lat 위도 (기본값: 서울 시청)
- * @param lon 경도 (기본값: 서울 시청)
  * @returns { nx: number, ny: number }
  */
-const convertToGrid = (_lat = 37.5665, _lon = 126.978): { nx: number; ny: number } => {
+const convertToGrid = (): { nx: number; ny: number } => {
   // 간단한 변환 로직 (실제로는 더 복잡한 변환이 필요)
   // 서울 시청 기준: nx=60, ny=127
   // 프로젝트에서는 사용자 위치 기반으로 변환하거나, 주요 도시 좌표를 미리 매핑
