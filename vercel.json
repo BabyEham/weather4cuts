@@ -4,8 +4,5 @@
       "source": "/api/:path*",
       "destination": "/api/:path*"
     }
-  ],
-  "env": {
-    "VITE_WEATHER_API_KEY": "@weather-api-key"
-  }
+  ]
 }
